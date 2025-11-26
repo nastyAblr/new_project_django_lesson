@@ -1,0 +1,111 @@
+{% extends "pizzeria/base.html" %}
+
+{% block title %}{{ pizza.name }} | Пиццерия{% endblock %}
+
+{% block styles %}
+<style>
+    .pizza-card {
+        max-width: 700px;
+        margin: 40px auto;
+        background: white;
+        padding: 25px;
+        border-radius: 14px;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+    }
+
+    .pizza-img {
+        width: 100%;
+        border-radius: 12px;
+        margin-bottom: 20px;
+    }
+
+    h1 {
+        margin: 0 0 10px;
+        font-size: 30px;
+        color: #333;
+        text-align: center;
+    }
+
+    .ingredients {
+        font-size: 17px;
+        line-height: 1.6;
+        color: #555;
+        margin: 20px 0;
+        text-align: center;
+    }
+
+    .price {
+        font-size: 24px;
+        color: #e63946;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .order-btn {
+        display: block;
+        width: 100%;
+        padding: 14px;
+        margin: 20px 0;
+        text-align: center;
+        background: #28a745;
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .order-btn:hover {
+        background: #34c357;
+    }
+
+    .back-btn {
+        display: inline-block;
+        padding: 10px 18px;
+        background: #ff4b2b;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        transition: 0.3s;
+        margin: 0 auto;
+        text-align: center;
+        display: block;
+        width: fit-content;
+    }
+
+    .back-btn:hover {
+        background: #ff6a44;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="pizza-card">
+
+    {% if pizza.image %}
+        <img src="{{ pizza.image.url }}" alt="{{ pizza.name }}" class="pizza-img">
+    {% endif %}
+
+    <h1>{{ pizza.name }}</h1>
+
+    <div class="ingredients">
+        <strong>Состав:</strong><br>
+        {{ pizza.ingredients }}
+    </div>
+
+    <div class="price">
+        {{ pizza.price }} ₽
+    </div>
+
+    <!-- 🔥 КНОПКА ЗАКАЗАТЬ -->
+    <a href="#" class="order-btn">Заказать</a>
+
+    <!-- Кнопка назад -->
+    <a href="{% url 'menu' %}" class="back-btn">← Назад к меню</a>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends "pizzeria/base.html" %}
+
+{% block title %}Меню | Пиццерия{% endblock %}
+
+{% block styles %}
+<style>
+    .menu-wrapper {
+        max-width: 1100px;
+        margin: 40px auto;
+    }
+
+    .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 25px;
+    }
+
+    .pizza-card {
+        background: white;
+        border-radius: 12px;
+        padding: 15px;
+        text-align: center;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        transition: 0.3s;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .pizza-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+
+    .pizza-img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-bottom: 12px;
+    }
+
+    .pizza-name {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
+    .pizza-price {
+        font-size: 18px;
+        color: #e63946;
+        font-weight: bold;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="menu-wrapper">
+
+    <a href="{% url 'home' %}"
+       style="
+           display:inline-block;
+           margin-bottom:20px;
+           padding:10px 18px;
+           background:#e63946;
+           color:white;
+           border-radius:8px;
+           text-decoration:none;
+           font-size:18px;
+       ">
+        ⬅ На главную
+    </a>
+
+    <h1 style="text-align:center; font-size:32px; margin-bottom:35px;">
+        Наше меню
+    </h1>
+
+    <div class="menu-grid">
+
+        {% for pizza in pizzas %}
+        <a href="{% url 'pizza_detail' pizza.slug %}" class="pizza-card">
+
+            {% if pizza.image %}
+                <img src="{{ pizza.image.url }}" alt="{{ pizza.name }}" class="pizza-img">
+            {% else %}
+                <div class="pizza-img" style="background:#f2f2f2; display:flex; align-items:center; justify-content:center;">
+                    Нет фото
+                </div>
+            {% endif %}
+
+            <div class="pizza-name">{{ pizza.name }}</div>
+            <div class="pizza-price">{{ pizza.price }} ₽</div>
+
+        </a>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

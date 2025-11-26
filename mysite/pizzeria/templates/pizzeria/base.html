@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Пиццерия{% endblock %}</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Arial", sans-serif;
+            background: #fff8f0;
+            color: #333;
+        }
+
+        header {
+            background: #ff4b2b;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            padding: 15px;
+            background: #eee;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .admin-btn {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            color: white;
+            background: #222;
+            padding: 6px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+    </style>
+
+    {% block styles %}{% endblock %}
+</head>
+<body>
+
+<header>
+    пиццерия "ИТАЛЬЯНО"
+
+    {% if user.is_staff %}
+       <a href="/admin/" class="admin-btn">Админ</a>
+
+    {% endif %}
+</header>
+
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+<footer>
+    © 2025 Пиццерия. Все права защищены.
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+{% extends "pizzeria/base.html" %}
+
+{% block title %}Главная | Пиццерия{% endblock %}
+
+{% block styles %}
+<style>
+    .hero {
+        background: url('https://i.imgur.com/y6dLZXu.jpeg') center/cover no-repeat;
+        height: 350px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-shadow: 0 0 10px rgba(0,0,0,0.7);
+        font-size: 40px;
+        font-weight: bold;
+    }
+
+    .content {
+        padding: 40px;
+        text-align: center;
+    }
+
+    .btn {
+        display: inline-block;
+        background: #ff4b2b;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 6px;
+        font-size: 18px;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+    .btn:hover {
+        background: #ff6a44;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="hero">
+    Самая вкусная пицца — у нас!
+</div>
+
+<div class="content">
+    <h2>Добро пожаловать!</h2>
+    <p>Мы готовим настоящую итальянскую пиццу из свежих ингредиентов и с любовью ❤️</p>
+
+    <a href="/menu/" class="btn">Смотреть меню</a>
+</div>
+
+{% endblock %}
