@@ -1,33 +1,28 @@
 from django.db.models.signals import post_save, post_delete
-from django.contrib.auth.models import User
 from django.dispatch import receiver
-from django.contrib.contenttypes.models import ContentType
+from django.contrib.auth.models import User
+from .models import UserProfile
 
-
-# ------- 1. Сигнал при создании или удалении записи в админке -------
-@receiver(post_save)
-def on_create_record(sender, instance, created, **kwargs):
-    # Пропускаем системные модели Django
-    if sender.__name__ in ['LogEntry', 'Session', 'Permission']:
-        return
-
+@receiver(post_save, sender=User)
+def create_profile_for_new_user(sender, instance, created, **kwargs):
     if created:
-        print(f"[SIGNAL] Создана новая запись: {sender.__name__} (ID={instance.id})")
-    else:
-        print(f"[SIGNAL] Запись обновлена: {sender.__name__} (ID={instance.id})")
+        UserProfile.objects.create(user=instance)
 
+# Пример логирующего сигнала на создание/удаление (опционально)
+@receiver(post_save)
+def log_create_update(sender, instance, created, **kwargs):
+    # пропускаем встроенные таблицы
+    name = sender.__name__
+    if name in ('Session','LogEntry','Permission'):
+        return
+    if created:
+        print(f"[SIGNAL] Created {sender.__name__} id={getattr(instance,'id',None)}")
+    else:
+        print(f"[SIGNAL] Updated {sender.__name__} id={getattr(instance,'id',None)}")
 
 @receiver(post_delete)
-def on_delete_record(sender, instance, **kwargs):
-    if sender.__name__ in ['LogEntry', 'Session', 'Permission']:
+def log_delete(sender, instance, **kwargs):
+    name = sender.__name__
+    if name in ('Session','LogEntry','Permission'):
         return
-
-    print(f"[SIGNAL] Удалена запись: {sender.__name__} (ID={instance.id})")
-
-
-
-# ------- 2. Сигнал при создании суперпользователя -------
-@receiver(post_save, sender=User)
-def on_superuser_created(sender, instance, created, **kwargs):
-    if created and instance.is_superuser:
-        print(f"[SIGNAL] Создан суперпользователь: {instance.username}")
+    print(f"[SIGNAL] Deleted {sender.__name__} id={getattr(instance,'id',None)}")

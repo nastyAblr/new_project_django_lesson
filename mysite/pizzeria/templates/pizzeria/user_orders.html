@@ -1,0 +1,28 @@
+{% extends "pizzeria/base.html" %}
+{% block title %}Мои заказы{% endblock %}
+
+{% block content %}
+<h1>Мои заказы</h1>
+
+<p style="font-size:18px; margin-top:-10px; color:#444;">
+    Вы вошли как: <strong>{{ request.user.username }}</strong>
+</p>
+
+{% if orders %}
+    <ul>
+        {% for order in orders %}
+            <li>
+                Заказ №{{ order.id }} — {{ order.created_at }}
+                <ul>
+                    {% for item in order.items.all %}
+                        <li>{{ item.pizza.name }} — {{ item.quantity }} шт.</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>У вас пока нет заказов.</p>
+{% endif %}
+
+{% endblock %}

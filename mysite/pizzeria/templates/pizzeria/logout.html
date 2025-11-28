@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Выход{% endblock %}
+
+{% block content %}
+<div style="
+    max-width: 400px;
+    margin: 40px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+">
+
+    <h2 style="text-align:center; color:#ff4b2b;">Вы вышли из аккаунта</h2>
+
+    <div style="text-align:center; margin-top:20px;">
+        <a href="/login/" style="
+            background:#ff4b2b;
+            color:white;
+            padding:10px 16px;
+            border-radius:6px;
+            text-decoration:none;
+        ">
+            Войти снова
+        </a>
+    </div>
+
+</div>
+{% endblock %}
+

@@ -1,0 +1,42 @@
+{% extends "pizzeria/base.html" %}
+
+{% block content %}
+<h1>Регистрация</h1>
+<a href="{% url 'home' %}"
+   style="
+       display:inline-block;
+       margin-bottom:15px;
+       text-decoration:none;
+       color:#e63946;
+       font-size:18px;
+   ">
+    ⬅ Назад
+</a>
+
+<form method="post">
+    {% csrf_token %}
+
+    <!-- Ошибки всей формы -->
+    {% if form.non_field_errors %}
+        <div style="color: red; font-weight: bold;">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+
+    <!-- Ошибки по полям -->
+    {% for field in form %}
+        <div style="margin-bottom: 10px;">
+            <label>{{ field.label }}</label><br>
+            {{ field }}
+
+            {% if field.errors %}
+                <div style="color: red;">
+                    {{ field.errors }}
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+    <button>Зарегистрироваться</button>
+</form>
+{% endblock %}

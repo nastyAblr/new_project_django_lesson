@@ -35,6 +35,9 @@
     .btn:hover {
         background: #ff6a44;
     }
+      .btn-primary {
+        background: #222;
+    }
 </style>
 {% endblock %}
 
@@ -49,6 +52,9 @@
     <p>Мы готовим настоящую итальянскую пиццу из свежих ингредиентов и с любовью ❤️</p>
 
     <a href="/menu/" class="btn">Смотреть меню</a>
+    <a href="{% url 'register' %}" class="btn btn-primary">Регистрация</a>
+
+
 </div>
 
 {% endblock %}

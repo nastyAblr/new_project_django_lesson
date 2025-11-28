@@ -44,6 +44,31 @@
             text-decoration: none;
             font-size: 16px;
         }
+
+        .logout-btn {
+            position: absolute;
+            right: 120px;
+            top: 20px;
+            background: #e63946;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .orders-btn {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            background: #1d3557;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 16px;
+        }
     </style>
 
     {% block styles %}{% endblock %}
@@ -51,11 +76,24 @@
 <body>
 
 <header>
+
+    {% if user.is_authenticated %}
+        <!-- КНОПКА МОИ ЗАКАЗЫ -->
+        <a href="{% url 'user_orders' %}" class="orders-btn">
+            Мои заказы
+        </a>
+
+        <!-- КНОПКА ВЫЙТИ -->
+        <form action="{% url 'logout' %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="logout-btn">Выйти</button>
+        </form>
+    {% endif %}
+
     пиццерия "ИТАЛЬЯНО"
 
     {% if user.is_staff %}
        <a href="/admin/" class="admin-btn">Админ</a>
-
     {% endif %}
 </header>
 

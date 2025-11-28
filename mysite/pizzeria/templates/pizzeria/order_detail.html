@@ -1,0 +1,41 @@
+{% extends "pizzeria/base.html" %}
+
+{% block title %}Заказ #{{ order.id }}{% endblock %}
+
+{% block content %}
+
+<h1>Заказ #{{ order.id }}</h1>
+
+<p>Статус: {{ order.get_status_display }}</p>
+<p>Имя: {{ order.name }}</p>
+<p>Телефон: {{ order.phone }}</p>
+<p>Адрес: {{ order.address }}</p>
+
+<h3>Позиции</h3>
+<ul>
+  {% for item in order.items.all %}
+    <li>
+        {{ item.quantity }} x {{ item.pizza.name }}
+        — {{ item.price }} ₽ = {{ item.get_cost }} ₽
+    </li>
+  {% endfor %}
+</ul>
+
+<p><strong>Итого: {{ order.total }} ₽</strong></p>
+
+<!-- КНОПКА НА ГЛАВНУЮ -->
+<a href="/" style="
+    display: inline-block;
+    margin-top: 25px;
+    padding: 12px 20px;
+    background: #ff4b2b;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+">
+    ⬅ Вернуться на главную
+</a>
+
+{% endblock %}
